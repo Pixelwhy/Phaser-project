@@ -1,0 +1,24 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
+{
+  "name": "Phaser.js Codespace",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18", // Or your preferred Node.js version
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "postCreateCommand": "npm install",
+  "forwardPorts": [8080],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "portsAttributes": {
+    "8080": {
+      "label": "Phaser Game",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
