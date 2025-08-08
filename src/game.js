@@ -13,10 +13,12 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('ken', 'assets/kenkaneki.jpg');
 }
 
 function create ()
 {
+    this.add.image(400, 300, 'ken');
 }
 
 function update ()
