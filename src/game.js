@@ -2,6 +2,13 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity : {y: 300},
+            debug: false
+        }
+    },
     scene: {
         preload: preload,
         create: create,
@@ -13,12 +20,12 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('ken', 'assets/kenkaneki.jpg');
+    this.load.image('sky', 'assets/nightsky.png');
 }
 
 function create ()
 {
-    this.add.image(400, 300, 'ken');
+    this.add.image(800, 500, 'sky');
 }
 
 function update ()
