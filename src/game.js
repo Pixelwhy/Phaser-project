@@ -35,11 +35,11 @@ function create ()
 
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(600, 400, 'ground');
+    platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
 
     player = this.physics.add.sprite(100, 450, 'dude');
 
-    player.setBounce(0.2);
     player.setCollideWorldBounds(true);
 
     this.anims.create({
@@ -62,7 +62,7 @@ function create ()
         repeat: -1
     });
 
-    player.body.setGravityY(300);
+    player.body.setGravityY(600);
     this.physics.add.collider(player, platforms);
 }
 
@@ -70,8 +70,40 @@ function update ()
 {
     cursors = this.input.keyboard.createCursorKeys();
 
-    if (cursors.left.isDown)
+    if ((cursors.left.isDown || cursors.keyA.isDown))
     {
         player.setVelocityX(-160);
+
+        player.anims.play('left', true);
+    }
+    else if ((cursors.left.isDown || cursors.keyA.isDown) && cursors.shift.isDown)
+    {
+        player.setVelocityX(-220);
+
+        player.anims.play('left', true);
+    }
+    else if((cursors.right.isDown || cursors.keyD.isDown))
+    {
+        player.setVelocityX(160);
+
+        player.anims.play('right', true);
+    }
+    else if ((cursors.right.isDown || cursors.keyD.isDown) && cursors.shift.isDown)
+    {
+        player.setVelocityX(220);
+
+        player.anims.play('right', true);
+    }
+    else
+    {
+        player.setVelocityX(0);
+
+        player.anims.play('turn');
+    }
+
+    if ((cursors.space.isDown || cursors.up.isDown || cursors.keyW.isDown) && player.body.touching.down)
+    {
+        player.setVelocityY(-500);
+
     }
 }
