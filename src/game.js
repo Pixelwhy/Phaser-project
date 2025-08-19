@@ -69,26 +69,34 @@ function create ()
 function update ()
 {
     cursors = this.input.keyboard.createCursorKeys();
+    wasd = {
+        up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+        left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+        down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+        right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+        shift: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Shift)
+    };
+    jump = 2;
 
-    if ((cursors.left.isDown || cursors.keyA.isDown))
+    if ((wasd.left.isDown || cursors.left.isDown))
     {
         player.setVelocityX(-160);
 
         player.anims.play('left', true);
     }
-    else if ((cursors.left.isDown || cursors.keyA.isDown) && cursors.shift.isDown)
+    else if ((wasd.left.isDown || cursors.left.isDown) && wasd.shift.isDown)
     {
         player.setVelocityX(-220);
 
         player.anims.play('left', true);
     }
-    else if((cursors.right.isDown || cursors.keyD.isDown))
+    else if((cursors.right.isDown || wasd.right.isDown))
     {
         player.setVelocityX(160);
 
         player.anims.play('right', true);
     }
-    else if ((cursors.right.isDown || cursors.keyD.isDown) && cursors.shift.isDown)
+    else if ((cursors.right.isDown || wasd.right.isDown) && wasd.shift.isDown)
     {
         player.setVelocityX(220);
 
@@ -101,9 +109,22 @@ function update ()
         player.anims.play('turn');
     }
 
-    if ((cursors.space.isDown || cursors.up.isDown || cursors.keyW.isDown) && player.body.touching.down)
+    if(player.body.touching.down)
     {
-        player.setVelocityY(-500);
+        jump = 2;
+    }
+    else
+    {
+        jump = 1;
+    }
 
+    if ((cursors.space.isDown || cursors.up.isDown || wasd.up.isDown) && player.body.touching.down && jump == 2)
+    {
+        player.setVelocityY(-550);
+        jump -= 1;
+    }
+    if ((cursors.space.isDown || cursors.up.isDown || wasd.up.isDown) && player.body.touching.up && jump == 1)
+    {
+        player.setVelocityY(-275);
     }
 }
